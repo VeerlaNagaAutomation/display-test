@@ -1,17 +1,16 @@
 # display_test.py
-import ctypes
+import sys
 
-def get_resolution():
-    user32 = ctypes.windll.user32
-    # Recommended for correct values on high-DPI displays
-    try:
-        user32.SetProcessDPIAware()
-    except Exception:
-        pass
-    width = user32.GetSystemMetrics(0)
-    height = user32.GetSystemMetrics(1)
-    return width, height
+def run_test(width=1024, height=768):
+    print(f"Running display resolution test with {width}x{height}")
+    # Here you can later add actual resolution change logic
 
 if __name__ == "__main__":
-    w, h = get_resolution()
-    print(f"Current screen resolution: {w}x{h}")
+    if len(sys.argv) == 3:
+        width = sys.argv[1]
+        height = sys.argv[2]
+        run_test(width, height)
+    else:
+        print("No resolution passed, using default 1024x768")
+        run_test()
+
