@@ -1,26 +1,23 @@
 pipeline {
     agent any
 
+    parameters {
+        string(name: 'WIDTH', defaultValue: '1280', description: 'Screen width')
+        string(name: 'HEIGHT', defaultValue: '720', description: 'Screen height')
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Get code from GitHub
                 git branch: 'main', url: 'https://github.com/VeerlaNagaAutomation/display-test.git'
             }
         }
 
-        stage('Setup Python') {
+        stage('Run Test with Parameters') {
             steps {
-                // Use your python.exe path
-                bat '"C:\\Users\\nveerlax\\python.exe" --version'
-            }
-        }
-
-        stage('Run Test') {
-            steps {
-                // Run your Python test file
-                bat '"C:\\Users\\nveerlax\\python.exe" display_test.py'
+                bat "\"C:\\Users\\nveerlax\\python.exe\" display_test.py ${params.WIDTH} ${params.HEIGHT}"
             }
         }
     }
 }
+
