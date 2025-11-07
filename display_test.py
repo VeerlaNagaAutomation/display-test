@@ -1,22 +1,21 @@
 import pytest
-import platform
 import psutil
+import pyautogui
 
-def test_system_info():
-    """Check basic system details"""
-    os_name = platform.system()
-    os_version = platform.version()
-    print(f"System: {os_name}, Version: {os_version}")
-    assert os_name != "", "OS name missing"
+def test_screen_resolution():
+    """Check if screen resolution is detected"""
+    width, height = pyautogui.size()
+    print(f"Screen resolution: {width}x{height}")
+    assert width > 0 and height > 0, "Invalid screen resolution"
 
 def test_cpu_usage():
-    """Ensure CPU usage is below 95%"""
-    usage = psutil.cpu_percent(interval=1)
-    print(f"CPU Usage: {usage}%")
-    assert usage < 95, "CPU overloaded"
+    """Check that CPU usage is below 90%"""
+    cpu = psutil.cpu_percent(interval=1)
+    print(f"CPU Usage: {cpu}%")
+    assert cpu < 90, "High CPU usage detected"
 
-def test_memory():
-    """Check RAM usage"""
-    mem = psutil.virtual_memory()
-    print(f"Memory Used: {mem.percent}%")
-    assert mem.percent < 95, "Memory too high!"
+def test_memory_usage():
+    """Check that RAM usage is below 90%"""
+    memory = psutil.virtual_memory().percent
+    print(f"Memory Usage: {memory}%")
+    assert memory < 90, "Memory usage too high"

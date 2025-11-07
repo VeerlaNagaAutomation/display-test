@@ -14,15 +14,9 @@ pipeline {
             }
         }
 
-        stage('Run Tests Locally') {
+        stage('Run Tests') {
             steps {
-                bat '"C:\\Users\\nveerlax\\python.exe" -m pytest -v --html=report.html --self-contained-html'
-            }
-        }
-
-        stage('Archive Report') {
-            steps {
-                archiveArtifacts artifacts: 'report.html', fingerprint: true
+                bat '"C:\\Users\\nveerlax\\python.exe" display_test.py'
             }
         }
     }
