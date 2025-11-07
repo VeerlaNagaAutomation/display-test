@@ -13,6 +13,13 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                bat '"C:\\Users\\nveerlax\\python.exe" -m pip install --upgrade pip'
+                bat '"C:\\Users\\nveerlax\\python.exe" -m pip install -r requirements.txt'
+            }
+        }
+
         stage('Run Test with Parameters') {
             steps {
                 bat "\"C:\\Users\\nveerlax\\python.exe\" display_test.py ${params.WIDTH} ${params.HEIGHT}"
@@ -20,4 +27,5 @@ pipeline {
         }
     }
 }
+
 
