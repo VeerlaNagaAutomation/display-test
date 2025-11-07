@@ -5,7 +5,7 @@ import subprocess
 import psutil
 
 # ✅ Put your video file path in quotes
-VIDEO_PATH = r"C:\Users\nveerlax\Documents\WIN_20251107_22_20_49_Pro.mp4"
+VIDEO_PATH = r"C:\ProgramData\Jenkins\.jenkins\workspace\display-test-job\WIN_20251107_22_20_49_Pro.mp4"
 
 @pytest.mark.video
 def test_play_video():
