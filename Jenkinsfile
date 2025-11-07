@@ -1,11 +1,5 @@
 pipeline {
     agent any
-
-    parameters {
-        string(name: 'WIDTH', defaultValue: '1280', description: 'Screen width')
-        string(name: 'HEIGHT', defaultValue: '720', description: 'Screen height')
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -20,12 +14,16 @@ pipeline {
             }
         }
 
-        stage('Run Test with Parameters') {
+        stage('Run Tests Locally') {
             steps {
-                bat "\"C:\\Users\\nveerlax\\python.exe\" display_test.py ${params.WIDTH} ${params.HEIGHT}"
+                bat '"C:\\Users\\nveerlax\\python.exe" -m pytest -v --html=report.html --self-contained-html'
+            }
+        }
+
+        stage('Archive Report') {
+            steps {
+                archiveArtifacts artifacts: 'report.html', fingerprint: true
             }
         }
     }
 }
-
-
