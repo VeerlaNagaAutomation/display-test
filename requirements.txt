@@ -1,2 +1,4 @@
 pyautogui
 pytest
+paramiko
+pytest-html
