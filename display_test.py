@@ -1,21 +1,32 @@
 import pytest
+import os
+import time
+import subprocess
 import psutil
-import pyautogui
 
-def test_screen_resolution():
-    """Check if screen resolution is detected"""
-    width, height = pyautogui.size()
-    print(f"Screen resolution: {width}x{height}")
-    assert width > 0 and height > 0, "Invalid screen resolution"
+VIDEO_PATH = r"C:\Videos\sample.mp4"  # Change this to your video file path
 
-def test_cpu_usage():
-    """Check that CPU usage is below 90%"""
-    cpu = psutil.cpu_percent(interval=1)
-    print(f"CPU Usage: {cpu}%")
-    assert cpu < 90, "High CPU usage detected"
+@pytest.mark.video
+def test_play_video():
+    """Play a video file locally to validate media playback"""
+    assert os.path.exists(C:\Documents\WIN_20251107_22_20_49_Pro.mp4), f"Video not found: {C:\Documents\WIN_20251107_22_20_49_Pro.mp4}"
 
-def test_memory_usage():
-    """Check that RAM usage is below 90%"""
-    memory = psutil.virtual_memory().percent
-    print(f"Memory Usage: {memory}%")
-    assert memory < 90, "Memory usage too high"
+    print(f"Playing video: {C:\Documents\WIN_20251107_22_20_49_Pro.mp4}")
+    
+    # Open video file using system default player (Windows)
+    proc = subprocess.Popen(["start", C:\Documents\WIN_20251107_22_20_49_Pro.mp4], shell=True)
+    
+    # Give time for the player to open
+    time.sleep(5)
+    
+    # Check if a video player process is running
+    player_running = any("vlc" in p.name().lower() or "wmplayer" in p.name().lower() for p in psutil.process_iter())
+    
+    assert player_running, "Video player did not start successfully"
+    
+    print("Video playback started successfully ✅")
+
+    # (Optional) close the player after 10 seconds
+    time.sleep(10)
+    os.system("taskkill /IM vlc.exe /F")
+    os.system("taskkill /IM wmplayer.exe /F")
